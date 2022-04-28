@@ -45,4 +45,8 @@ Python, Dgango, Dgango Rest Framework, JWT
 
   ```
   python yatube_api/manage.py runserver
+<<<<<<< HEAD
   ```
+=======
+  ```
+>>>>>>> 7b32d1126dfe9b6409aeb939b63b88c28b64d415
