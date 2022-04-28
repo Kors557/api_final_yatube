@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -51,11 +52,20 @@ class Follow(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='follower',
-        verbose_name='Подписчик'
     )
-    author = models.ForeignKey(
+    following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='following',
-        verbose_name='Автор'
     )
+
+    def clean(self):
+        if self.user == self.author:
+            raise ValidationError(
+                'author and user should be different'
+            )
+
+    class Meta:
+        models.UniqueConstraint(
+            fields=['user', 'author'], name='unique_follow'
+        )
