@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import filters, viewsets
+from rest_framework import mixins
 from rest_framework.exceptions import ParseError
 from rest_framework.permissions import IsAuthenticated
 from posts.models import Post, Group, Follow, User
@@ -65,7 +66,11 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.delete()
 
 
-class FollowViewSet(viewsets.ModelViewSet):
+class FollowViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet
+):
     serializer_class = FollowSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,)
