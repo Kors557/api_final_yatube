@@ -63,22 +63,3 @@ class FollowViewSet(
 
     def get_queryset(self):
         return Follow.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        self.list
-        if not self.request.data.get('following'):
-            raise ParseError(
-                'Есть не все данные'
-            )
-        author = get_object_or_404(
-            User,
-            username=self.request.data.get('following')
-        )
-        if Follow.objects.filter(
-            following=author,
-            user=self.request.user
-        ).exists():
-            raise ParseError(
-                'Нельзя подписаться дважды'
-            )
-        serializer.save(following=author, user=self.request.user)
