@@ -5,9 +5,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import filters, viewsets
 from rest_framework import mixins
-from rest_framework.exceptions import ParseError
 from rest_framework.permissions import IsAuthenticated
-from posts.models import Post, Group, Follow, User
+from posts.models import Post, Group, Follow
 from .serializers import (
     PostSerializer,
     CommentSerializer,
