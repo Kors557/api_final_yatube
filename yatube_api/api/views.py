@@ -74,10 +74,6 @@ class FollowViewSet(
             User,
             username=self.request.data.get('following')
         )
-        if author == self.request.user:
-            raise ParseError(
-                'Нельзя подписаться на самого себя'
-            )
         if Follow.objects.filter(
             following=author,
             user=self.request.user
